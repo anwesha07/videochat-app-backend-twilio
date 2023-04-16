@@ -1,11 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
 
 const router = require("./routes");
-app.use(express.json())
+
+app.use(cors());
+app.use(express.json());
+
 
 
 app.get('/', (req, res) => {
@@ -14,10 +18,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', router);
-
-
-
-
 
 
 app.listen(8000, () => {
