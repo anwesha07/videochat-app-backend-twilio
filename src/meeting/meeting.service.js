@@ -3,8 +3,6 @@ const AccessToken = twilio.jwt.AccessToken;
 const VideoGrant = AccessToken.VideoGrant;
 
 
-
-
 const config = {
     twilio: {
         accountSid: process.env.TWILIO_ACCOUNT_SID,
@@ -13,31 +11,24 @@ const config = {
       }
 };
 
-// creating adhoc twilio rooms
-const generateVideoToken = (req, res, next) => {
-    console.log(req.body);
-    // req body will contain username and roomname
-    // config will contain twilio account details 
-    console.log(config);
-
+const generateVideoTokenService = (user, room) => {
     // create a video grant for this specific room
-    const videoGrant = new VideoGrant({room: req.body.roomName});
+    const videoGrant = new VideoGrant({room});
 
     // create an access token
     const token = new AccessToken(
         config.twilio.accountSid,
         config.twilio.apiKey,
         config.twilio.apiSecret,
-        //add the identity of the first person joining the room
-        { identity: req.body.userName }
+        //add the identity of the person joining the room
+        { identity: user }
     );
 
     // add the video grant of the room to the token
     token.addGrant(videoGrant);
+    return token.toJwt();
+}
 
-    //send the token for the room
-    req.token = token;
-    next();
-};
-
-module.exports = generateVideoToken;
+module.exports = {
+    generateVideoTokenService,
+}

@@ -1,4 +1,4 @@
-const validateBody = (req,res,next) => {
+const validateReqBody = (req, res, next) => {
     if (!req.body.roomName) {
         res.status(400).json({error: 'invalid room'}); 
         return;   
@@ -7,7 +7,13 @@ const validateBody = (req,res,next) => {
         res.status(400).json({error: 'invalid user'}); 
         return;   
     } 
+    // if (!req.body.passcode) {
+    //     res.status(400).json({error: 'invalid passcode'}); 
+    //     return;   
+    // } 
     next();
 }
 
-module.exports = validateBody;
+module.exports = {
+    validateReqBody,
+}
