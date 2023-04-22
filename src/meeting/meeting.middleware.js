@@ -1,4 +1,4 @@
-const validateReqBody = (req, res, next) => {
+const validateJoinMeetingBody = (req, res, next) => {
     if (!req.body.roomName) {
         res.status(400).json({error: 'invalid room'}); 
         return;   
@@ -15,5 +15,5 @@ const validateReqBody = (req, res, next) => {
 }
 
 module.exports = {
-    validateReqBody,
+    validateJoinMeetingBody,
 }
