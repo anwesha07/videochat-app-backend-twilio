@@ -1,7 +1,7 @@
 const authRouter = require('express').Router();
 
-const {validateRegisterDataBody} = require('./auth.middleware');
-const {registerUserController} = require('./auth.controller');
+const {validateRegisterDataBody, validateLoginDataBody} = require('./auth.middleware');
+const {registerUserController, loginUserController} = require('./auth.controller');
 
 
 authRouter.get('/', (req, res) => {
@@ -9,5 +9,6 @@ authRouter.get('/', (req, res) => {
 });
 
 authRouter.post('/register', validateRegisterDataBody, registerUserController);
+authRouter.post('/login', validateLoginDataBody, loginUserController);
 
 module.exports = authRouter;

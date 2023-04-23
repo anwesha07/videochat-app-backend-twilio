@@ -1,4 +1,5 @@
 const Joi = require('joi');
+
 const validateRegisterDataBody = async (req, res, next) => {
     const registerBodySchema = Joi.object({
         userName: Joi.string()
@@ -18,10 +19,35 @@ const validateRegisterDataBody = async (req, res, next) => {
         await registerBodySchema.validateAsync(req.body);
         next();
     } catch (error) {
-        res.status(404).send({error});
+        res.status(400).send({error});
     }
 }
 
+
+const validateLoginDataBody = async (req, res, next) => {
+    const loginBodySchema = Joi.object({
+        userName: Joi.string()
+            .alphanum()
+            .min(3)
+            .max(30)
+            .required(),
+        password: Joi.string()
+            .required()
+    });
+    await loginBodySchema.validateAsync(req.body);
+        console.log("validating")
+        next();
+    // try {
+    //     await loginBodySchema.validateAsync(req.body);
+    //     console.log("validating")
+    //     next();
+    // } catch (error) {
+    //     res.status(400).send(error);
+    // }
+}
+
+
 module.exports = {
-    validateRegisterDataBody
+    validateRegisterDataBody,
+    validateLoginDataBody
 }

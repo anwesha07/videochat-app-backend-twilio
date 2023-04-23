@@ -15,8 +15,7 @@ const userSchema = new Schema({
     min: 8,
   },
   token : {
-    type: [String],
-
+    type: String,
   }
 });
 
@@ -27,6 +26,16 @@ const saveNewUser = async(userDetails) => {
     return newUser.save();
 }
 
+const getUserByUserName = async (userName) => {
+  return User.findOne({ userName });
+}
+
+const updateToken = (id, token) => {
+  return User.findByIdAndUpdate(id, { token }, { new: true });
+}
+
 module.exports = {
-    saveNewUser
+    saveNewUser,
+    getUserByUserName,
+    updateToken
 }

@@ -1,10 +1,12 @@
 const bcrypt = require('bcrypt');
-const { saveNewUser } = require('./auth.model');
+const jwt =require('jsonwebtoken');
+
+const { saveNewUser, getUserByUserName, updateToken } = require('./auth.model');
+const saltRounds = 10;
 
 
-const registerUserservice = async (userName, password) => {
+const registerUserService = async (userName, password) => {
     // hash password using bcrypt
-    const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const user = await saveNewUser({
         userName,
@@ -13,6 +15,33 @@ const registerUserservice = async (userName, password) => {
     return user;
 }
 
+const loginUserService = async (userName, password) => {
+    const user = await getUserByUserName(userName);
+    if (!user) throw new Error("incorrect credentials");
+    // compare passwords using bcrypt
+    const match = await bcrypt.compare(password, user.password);
+    if (match) {
+        // create token
+        const token = jwt.sign(
+            {
+                userId: user._id
+            },
+            process.env.TOKEN_KEY,
+            {
+                expiresIn: "24h"
+            }
+        );
+
+        const loggedInUser = await updateToken(user._id, token);
+        return loggedInUser;
+
+    } else {
+        throw new Error("incorrect credentials");
+    }
+    
+}
+
 module.exports = {
-    registerUserservice
+    registerUserService,
+    loginUserService
 }
