@@ -30,6 +30,10 @@ const getUserByUserName = async (userName) => {
   return User.findOne({ userName });
 }
 
+const getUserByUserId = async (userId) => {
+  return User.findById(userId);
+}
+
 const updateToken = (id, token) => {
   return User.findByIdAndUpdate(id, { token }, { new: true });
 }
@@ -37,5 +41,6 @@ const updateToken = (id, token) => {
 module.exports = {
     saveNewUser,
     getUserByUserName,
-    updateToken
+    updateToken,
+    getUserByUserId
 }

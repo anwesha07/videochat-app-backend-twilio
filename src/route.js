@@ -2,7 +2,7 @@
 
 const router = require('express').Router();
 const meetingRouter = require('./meeting/meeting.route');
-// const roomRouter = require('./room/room.route.js');
+const roomRouter = require('./room/room.route.js');
 const authRouter = require('./auth/auth.route.js');
 
 router.get('/', (req, res) => {
@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.use('/meeting', meetingRouter);
-// router.use('./room', roomRouter);
+router.use('/room', roomRouter);
 router.use('/auth', authRouter);
 
 module.exports = router;

@@ -34,16 +34,14 @@ const validateLoginDataBody = async (req, res, next) => {
         password: Joi.string()
             .required()
     });
-    await loginBodySchema.validateAsync(req.body);
+
+    try {
+        await loginBodySchema.validateAsync(req.body);
         console.log("validating")
         next();
-    // try {
-    //     await loginBodySchema.validateAsync(req.body);
-    //     console.log("validating")
-    //     next();
-    // } catch (error) {
-    //     res.status(400).send(error);
-    // }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
 }
 
 
