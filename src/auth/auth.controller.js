@@ -34,8 +34,13 @@ const logoutUserController = async (req, res) => {
     }
 }
 
+const verifyLoggedInUserController = (req, res) => {
+    res.status(200).json ({userId: req.user._id, isLoggedIn: true});
+}
+
 module.exports = {
     registerUserController,
     loginUserController,
-    logoutUserController
+    logoutUserController,
+    verifyLoggedInUserController
 }
