@@ -1,7 +1,5 @@
-const router = require('../route');
-
-const {validateCreateRoomReqBody} = require('./room.middleware');
-const { createRoomController } = require('./room.controller');
+const {validateCreateRoomReqBody, validateJoinMeetingReqBody} = require('./room.middleware');
+const { createRoomController, joinMeetingController } = require('./room.controller');
 const { authenticateUser } = require('../middleware');
 
 
@@ -13,6 +11,7 @@ roomRouter.get('/', (req, res) => {
 
 roomRouter.post('/', authenticateUser, validateCreateRoomReqBody, createRoomController);
 
+roomRouter.post('/join',authenticateUser, validateJoinMeetingReqBody, joinMeetingController);
 
 
 

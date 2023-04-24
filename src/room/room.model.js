@@ -31,7 +31,17 @@ const createNewRoom = (roomId, passcode, creator) => {
     return newRoom.save();
 }
 
+const getRoomByRoomId = (roomId) => {
+    return Room.findOne({roomId});
+}
+
+const updateLastAccess = (roomId, date) => {
+    return Room.findOneAndUpdate({roomId}, {lastAccesedAt: date});
+}
+
 
 module.exports = {
     createNewRoom,
+    getRoomByRoomId,
+    updateLastAccess
 }
