@@ -16,6 +16,7 @@ const userSchema = new Schema({
   },
   token : {
     type: String,
+    default: null
   }
 });
 
@@ -38,9 +39,14 @@ const updateToken = (id, token) => {
   return User.findByIdAndUpdate(id, { token }, { new: true });
 }
 
+const resetTokenByUserId = (id) => {
+  return User.findByIdAndUpdate(id, {token: null}, { new: true } )
+}
+
 module.exports = {
     saveNewUser,
     getUserByUserName,
     updateToken,
-    getUserByUserId
+    getUserByUserId,
+    resetTokenByUserId
 }

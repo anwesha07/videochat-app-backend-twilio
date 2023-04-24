@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt =require('jsonwebtoken');
 
-const { saveNewUser, getUserByUserName, updateToken } = require('./auth.model');
+const { saveNewUser, getUserByUserName, updateToken, resetTokenByUserId } = require('./auth.model');
 const saltRounds = 10;
 
 
@@ -41,7 +41,12 @@ const loginUserService = async (userName, password) => {
     
 }
 
+const logoutUserService = async (userId) => {
+    return await resetTokenByUserId(userId);
+}
+
 module.exports = {
     registerUserService,
-    loginUserService
+    loginUserService,
+    logoutUserService
 }
