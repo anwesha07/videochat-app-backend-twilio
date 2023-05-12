@@ -1,11 +1,11 @@
 // the main router which will route the requests to each module
 
 const router = require('express').Router();
-const roomRouter = require('./room/room.route.js');
-const authRouter = require('./auth/auth.route.js');
+const roomRouter = require('./room/room.route');
+const authRouter = require('./auth/auth.route');
 
 router.get('/', (req, res) => {
-    res.json({route: 'ok'})
+  res.json({ route: 'ok' });
 });
 
 router.use('/room', roomRouter);

@@ -1,10 +1,10 @@
-//400
-const HttpException = require("./HttpException")
+// 400
+const HttpException = require('./HttpException');
 
 class BadRequestException extends HttpException {
-    constructor(message) {
-      super(400, message);
-    }
+  constructor(message) {
+    super(400, message);
   }
-  
-  module.exports = BadRequestException;
+}
+
+module.exports = BadRequestException;

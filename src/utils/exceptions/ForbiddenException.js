@@ -1,10 +1,10 @@
-//403
-const HttpException = require("./HttpException")
+// 403
+const HttpException = require('./HttpException');
 
 class ForbiddenException extends HttpException {
-    constructor(message) {
-      super(403, message);
-    }
+  constructor(message) {
+    super(403, message);
   }
-  
+}
+
 module.exports = ForbiddenException;
