@@ -12,9 +12,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const router = require('./route');
+const { globalErrorHandler } = require('./utils');
 app.use('/api', router);
 
-// const errorHandler = require('./utils');
-// app.use(errorHandler);
 
+app.use(globalErrorHandler);
 module.exports = app;

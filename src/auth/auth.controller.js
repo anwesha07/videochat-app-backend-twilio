@@ -1,41 +1,27 @@
+const { asyncWrap } = require('../utils');
 const { registerUserService, loginUserService, logoutUserService } = require('./auth.service');
 
-const registerUserController = async (req, res) => {
+const registerUserController = asyncWrap( async(req, res) => {
     const { userName, password } = req.body;
-    
-    try {
-        const user = await registerUserService(userName, password);
-        res.status(201).json(user);
-    } catch(error) {
-        res.status(400).send({error});
-    }
-}
+    const user = await registerUserService(userName, password);
+    res.status(201).json(user);
+})
 
 
-const loginUserController = async (req, res) => {
-    try {
-        const {userName, password} = req.body;
-        const loggedInUser = await loginUserService(userName, password);
-        res.json(loggedInUser);
-    } catch(error) {
-        console.log(error);
-        res.status(400).send({error: error.message});
-    }
-}
+const loginUserController = asyncWrap( async (req, res) => {
+    const {userName, password} = req.body;
+    const loggedInUser = await loginUserService(userName, password);
+    res.json(loggedInUser);
+})
 
-const logoutUserController = async (req, res) => {
-    try {
-        const userId = req.user._id;
-        const loggedOutUser = await logoutUserService(userId);
-        res.status(200).json(loggedOutUser);
-    } catch(error) {
-        console.log(error);
-        res.status(400).send({error: error.message});
-    }
-}
+const logoutUserController = asyncWrap( async (req, res) => {
+    const userId = req.user._id;
+    const loggedOutUser = await logoutUserService(userId);
+    res.status(200).json(loggedOutUser);
+})
 
 const verifyLoggedInUserController = (req, res) => {
-    res.status(200).json ({userId: req.user._id, isLoggedIn: true});
+    res.status(200).json ({userId: req.user._id, userName: req.user.userName, isLoggedIn: true});
 }
 
 module.exports = {

@@ -1,7 +1,8 @@
 // all common middlewares here
 
 const jwt = require('jsonwebtoken')
-const {validateToken} = require('./auth/auth.utils')
+const {validateToken} = require('./auth/auth.utils');
+const { UnauthorisedException } = require('./utils/exceptions');
 
 const authenticateUser = async (req, res, next) => {
     token = req.headers['x-token'];
@@ -12,11 +13,11 @@ const authenticateUser = async (req, res, next) => {
         req.user = user;
         next();
     } catch(error) {
-        res.status(400).json({error: error.message});
+        next(new UnauthorisedException(error.message))
     }
 
 }
 
 module.exports = {
-    authenticateUser
+    authenticateUser,
 }

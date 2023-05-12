@@ -2,7 +2,6 @@ const {validateCreateRoomReqBody, validateJoinMeetingReqBody} = require('./room.
 const { createRoomController, joinMeetingController } = require('./room.controller');
 const { authenticateUser } = require('../middleware');
 
-
 const roomRouter = require('express').Router();
 
 roomRouter.get('/', (req, res) => {

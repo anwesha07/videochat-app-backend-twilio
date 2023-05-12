@@ -1,5 +1,6 @@
 const { required } = require('joi');
 const Joi = require('joi');
+const { BadRequestException } = require('../utils/exceptions');
 
 const validateCreateRoomReqBody = async(req, res, next) => {
     console.log(req.body);
@@ -14,7 +15,7 @@ const validateCreateRoomReqBody = async(req, res, next) => {
         await createRoomBodySchema.validateAsync(req.body);
         next();
     } catch(error) {
-        res.status(400).json({error: error.message});
+        next(new BadRequestException(error.message))
     }
 
 
@@ -36,7 +37,7 @@ const validateJoinMeetingReqBody = async (req, res, next) => {
         await joinMeetingBodySchema.validateAsync(req.body);
         next();
     } catch(error) {
-        res.status(400).json({error: error.message});
+        next(new BadRequestException(error.message))
     } 
 }
  

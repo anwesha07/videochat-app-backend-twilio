@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const {BadRequestException} = require('../utils/exceptions')
 
 const validateRegisterDataBody = async (req, res, next) => {
     const registerBodySchema = Joi.object({
@@ -19,7 +20,8 @@ const validateRegisterDataBody = async (req, res, next) => {
         await registerBodySchema.validateAsync(req.body);
         next();
     } catch (error) {
-        res.status(400).send({error});
+        console.log(error.message);
+        next(new BadRequestException(error.message));
     }
 }
 
@@ -40,7 +42,7 @@ const validateLoginDataBody = async (req, res, next) => {
         console.log("validating")
         next();
     } catch (error) {
-        res.status(400).send(error.message);
+        next(new BadRequestException(error.message));
     }
 }
 
