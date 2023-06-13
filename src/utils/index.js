@@ -4,7 +4,7 @@ const asyncWrap = (func) => (req, res, next) =>
   func(req, res, next).catch((error) => next(error));
 
 // global error handling mw
-function globalErrorHandler(error, req, res, next) {
+function globalErrorHandler(error, _req, res, next) {
   if (res.headersSent) {
     // Delegating to built-in error handler
     next(error);

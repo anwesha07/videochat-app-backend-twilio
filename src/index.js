@@ -1,6 +1,6 @@
-const app = require('./app');
+const httpServer = require('./app');
 require('./db');
 
-app.listen(8000, () => {
+httpServer.listen(8000, () => {
   console.log('server started at port 8000');
 });
